@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="flex-grow flex items-center justify-center p-6 relative">
+    <div class="absolute w-full h-full inset-0 z-[-1] flex justify-center items-center pointer-events-none">
+        <div class="h-96 w-96 bg-brand-500/20 rounded-full blur-[100px] absolute -top-10 left-10"></div>
+        <div class="h-96 w-96 bg-indigo-500/20 rounded-full blur-[100px] absolute bottom-10 right-10"></div>
+    </div>
+
+    <div
+        class="max-w-4xl text-center space-y-8 z-10 glass-panel p-12 rounded-3xl animate-fade-in-up border border-white/5 relative shadow-2xl">
+        <h1 class="text-5xl md:text-7xl font-bold tracking-tight text-white mb-6">
+            The Future of <span class="gradient-text">Recruitment.</span>
+        </h1>
+
+        <p class="text-xl md:text-2xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
+            AI-driven applicant screening, automated skill assessments, and flawless candidate pipelines built for
+            modern teams.
+        </p>
+
+        <div class="pt-8 flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'signup_choice' %}"
+                class="btn-primary text-white text-lg px-8 py-4 rounded-full font-medium shadow-xl hover-scale flex items-center justify-center gap-2 group">
+                Start Hiring Now
+                <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3">
+                    </path>
+                </svg>
+            </a>
+            <a href="{% url 'login' %}"
+                class="bg-white/10 hover:bg-white/20 border border-white/20 text-white text-lg px-8 py-4 rounded-full font-medium backdrop-blur-sm transition-all shadow-lg flex items-center justify-center">
+                Log In
+            </a>
+        </div>
+
+        <div class="pt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+            <div class="bg-white/5 p-6 rounded-2xl border border-white/10 hover:border-brand-500/50 transition-colors">
+                <div class="h-12 w-12 rounded-xl bg-brand-500/20 flex items-center justify-center mb-4">
+                    <svg class="w-6 h-6 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">Automated Parsing</h3>
+                <p class="text-slate-400">Instantly parse and rank incoming resumes with local AI algorithms.</p>
+            </div>
+
+            <div class="bg-white/5 p-6 rounded-2xl border border-white/10 hover:border-indigo-500/50 transition-colors">
+                <div class="h-12 w-12 rounded-xl bg-indigo-500/20 flex items-center justify-center mb-4">
+                    <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z">
+                        </path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">Voice Assessments</h3>
+                <p class="text-slate-400">Level 2 AI voice interviews measuring delivery, fluency and confidence.</p>
+            </div>
+
+            <div class="bg-white/5 p-6 rounded-2xl border border-white/10 hover:border-purple-500/50 transition-colors">
+                <div class="h-12 w-12 rounded-xl bg-purple-500/20 flex items-center justify-center mb-4">
+                    <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
+                        </path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">3-Level Pipeline</h3>
+                <p class="text-slate-400">Structured flow from initial screening to final HR review phase.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

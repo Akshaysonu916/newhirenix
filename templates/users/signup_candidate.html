@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="flex-grow flex items-center justify-center p-6 relative">
+    <div class="absolute w-full h-full inset-0 z-[-1] flex justify-center items-center pointer-events-none">
+        <div class="h-64 w-64 bg-brand-500/20 rounded-full blur-[80px] absolute -top-10 left-10"></div>
+        <div class="h-64 w-64 bg-indigo-500/20 rounded-full blur-[80px] absolute bottom-10 right-10"></div>
+    </div>
+
+    <div
+        class="max-w-2xl w-full glass-panel p-8 md:p-12 rounded-3xl border border-white/5 animate-fade-in-up relative z-10 shadow-2xl">
+        <div class="text-center mb-10">
+            <h2 class="text-3xl font-bold text-white mb-2">Create a Candidate Account</h2>
+            <p class="text-slate-400">Join Hirenix and fast-track your hiring process.</p>
+        </div>
+
+        <form method="post" action="{% url 'signup_candidate' %}" enctype="multipart/form-data" class="space-y-6">
+            {% csrf_token %}
+
+            {% if form.errors %}
+            <div class="bg-rose-500/10 border border-rose-500/50 text-rose-400 text-sm p-4 rounded-lg">
+                <p class="font-bold mb-2">Please correct the errors below:</p>
+                {{ form.errors }}
+            </div>
+            {% endif %}
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Username -->
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">Username *</label>
+                    <input type="text" name="username"
+                        class="bg-slate-800/50 border border-slate-700 text-white text-sm rounded-lg focus:ring-brand-500 focus:border-brand-500 block w-full p-2.5"
+                        required>
+                </div>
+                <!-- Email -->
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">Email Address *</label>
+                    <input type="email" name="email"
+                        class="bg-slate-800/50 border border-slate-700 text-white text-sm rounded-lg focus:ring-brand-500 focus:border-brand-500 block w-full p-2.5"
+                        required>
+                </div>
+                <!-- First Name -->
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">First Name *</label>
+                    <input type="text" name="first_name"
+                        class="bg-slate-800/50 border border-slate-700 text-white text-sm rounded-lg focus:ring-brand-500 focus:border-brand-500 block w-full p-2.5"
+                        required>
+                </div>
+                <!-- Last Name -->
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">Last Name *</label>
+                    <input type="text" name="last_name"
+                        class="bg-slate-800/50 border border-slate-700 text-white text-sm rounded-lg focus:ring-brand-500 focus:border-brand-500 block w-full p-2.5"
+                        required>
+                </div>
+                <!-- Password 1 -->
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">Password *</label>
+                    <input type="password" name="password"
+                        class="bg-slate-800/50 border border-slate-700 text-white text-sm rounded-lg focus:ring-brand-500 focus:border-brand-500 block w-full p-2.5"
+                        required>
+                </div>
+                <!-- Experience -->
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">Years of Experience</label>
+                    <input type="number" name="experience_years" value="0" min="0"
+                        class="bg-slate-800/50 border border-slate-700 text-white text-sm rounded-lg focus:ring-brand-500 focus:border-brand-500 block w-full p-2.5">
+                </div>
+            </div>
+
+            <!-- Skills -->
+            <div>
+                <label class="block text-sm font-medium text-slate-300 mb-1">Core Skills (comma separated)</label>
+                <input type="text" name="skills" placeholder="e.g. Python, SQL, React"
+                    class="bg-slate-800/50 border border-slate-700 text-white text-sm rounded-lg focus:ring-brand-500 focus:border-brand-500 block w-full p-2.5">
+            </div>
+
+            <!-- Resume Upload -->
+            <div>
+                <label class="block text-sm font-medium text-slate-300 mb-2">Resume (PDF/DOCX)</label>
+                <div class="flex items-center justify-center w-full">
+                    <label for="id_resume"
+                        class="flex flex-col items-center justify-center w-full h-32 border-2 border-slate-600 border-dashed rounded-lg cursor-pointer bg-slate-800/30 hover:bg-slate-800/50 hover:border-brand-500 transition-colors">
+                        <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                            <svg class="w-8 h-8 mb-4 text-slate-400" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                                </path>
+                            </svg>
+                            <p class="mb-2 text-sm text-slate-400"><span class="font-bold text-brand-400">Click to
+                                    upload</span> or drag and drop</p>
+                        </div>
+                        <input id="id_resume" type="file" name="resume" class="hidden" accept=".pdf,.doc,.docx" />
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit"
+                class="w-full btn-primary text-white font-bold rounded-lg text-lg px-5 py-4 text-center shadow-lg hover-scale mt-8">Create
+                Candidate Account</button>
+
+            <p class="text-sm text-center text-slate-400 mt-6">
+                Already have an account? <a href="{% url 'login' %}"
+                    class="text-brand-400 hover:text-brand-300 font-medium">Log In</a>
+            </p>
+        </form>
+    </div>
+</div>
+{% endblock %}

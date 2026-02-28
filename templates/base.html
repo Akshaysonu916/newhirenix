@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Hirenix | Recruitment System{% endblock %}</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Toastify CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    
+    <!-- Tailwind CSS Script -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0faff',
+                            100: '#e0f4fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        dark: {
+                            100: '#1e293b',
+                            200: '#0f172a',
+                            300: '#020617',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #0ea5e9, #6366f1);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -10px rgba(99, 102, 241, 0.5);
+        }
+
+        .blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        /* Micro animations */
+        .hover-scale { transition: transform 0.2s; }
+        .hover-scale:hover { transform: scale(1.02); }
+    </style>
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="antialiased min-h-screen flex flex-col relative">
+
+    <!-- Decorative background blobs -->
+    <div class="blob bg-brand-600/30 w-96 h-96 top-[-10%] left-[-10%]"></div>
+    <div class="blob bg-indigo-600/30 w-[30rem] h-[30rem] bottom-[-10%] right-[-10%]"></div>
+
+    <!-- Navigation -->
+    <nav class="glass-panel sticky top-0 z-50 border-b border-white/10 w-full transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.location.href='/'">
+                    <span class="text-2xl font-bold tracking-tight text-white flex items-center">
+                        <svg class="h-8 w-8 text-brand-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                        Hire<span class="gradient-text">nix</span>
+                    </span>
+                </div>
+                
+                <div class="hidden md:flex space-x-8 items-center">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'dashboard' %}" class="text-slate-300 hover:text-white transition">Dashboard</a>
+                        {% if user.is_company %}
+                            <a href="#" class="text-slate-300 hover:text-white transition">Post a Job</a>
+                        {% elif user.is_candidate %}
+                            <a href="#" class="text-slate-300 hover:text-white transition">Browse Jobs</a>
+                        {% endif %}
+                        <div class="flex items-center gap-3 ml-4 border-l border-white/10 pl-6">
+                            <div class="h-8 w-8 rounded-full bg-brand-500 flex items-center justify-center text-sm font-bold text-white shadow-lg">
+                                {{ user.username|make_list|first|upper }}
+                            </div>
+                            <span class="font-medium text-slate-200">{{ user.username }}</span>
+                            <form action="{% url 'logout' %}" method="post" class="inline">
+                                {% csrf_token %}
+                                <button type="submit" class="text-sm text-rose-400 hover:text-rose-300 ml-3 font-medium transition">Logout</button>
+                            </form>
+                        </div>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="text-slate-300 hover:text-white transition font-medium">Log in</a>
+                        <a href="{% url 'signup_choice' %}" class="btn-primary text-white px-5 py-2 rounded-full font-medium shadow-sm hover-scale">Get Started</a>
+                    {% endif %}
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-slate-300 hover:text-white focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Mobile Menu Container (Hidden by default) -->
+    <div id="mobile-menu" class="hidden md:hidden glass-panel border-b border-white/10">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            {% if user.is_authenticated %}
+                <a href="{% url 'dashboard' %}" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-white/5">Dashboard</a>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="w-full text-left block px-3 py-2 rounded-md text-base font-medium text-rose-400 hover:text-rose-300 hover:bg-white/5">Logout</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-white/5">Log in</a>
+                <a href="{% url 'signup_choice' %}" class="block px-3 py-2 rounded-md text-base font-medium text-brand-400 hover:text-brand-300 hover:bg-white/5">Get Started</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex flex-col w-full relative z-10">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-panel border-t border-white/10 mt-auto py-8 z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center">
+                <span class="text-xl font-bold tracking-tight text-white flex items-center">
+                    Hire<span class="text-brand-400">nix</span>
+                </span>
+            </div>
+            <p class="text-slate-400 text-sm">© 2026 Hirenix Recruitment Platform. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Toastify JS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script>
+        // Simple Mobile Menu Toggle
+        document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Django Messages via Toastify
+        document.addEventListener('DOMContentLoaded', () => {
+            {% if messages %}
+                {% for message in messages %}
+                    Toastify({
+                        text: "{{ message }}",
+                        duration: 3000,
+                        close: true,
+                        gravity: "top", // `top` or `bottom`
+                        position: "right", // `left`, `center` or `right`
+                        style: {
+                            background: "{{ message.tags }}" === "success" ? "linear-gradient(to right, #10b981, #059669)" : 
+                                        "{{ message.tags }}" === "error" ? "linear-gradient(to right, #ef4444, #dc2626)" : 
+                                        "linear-gradient(to right, #3b82f6, #2563eb)",
+                            borderRadius: '8px',
+                            fontFamily: 'Outfit, sans-serif'
+                        }
+                    }).showToast();
+                {% endfor %}
+            {% endif %}
+        });
+    </script>
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full animate-fade-in-up">
+    <!-- Header -->
+    <div class="mb-10 flex border-b border-white/10 pb-6 items-center justify-between">
+        <div>
+            <h1 class="text-3xl font-bold text-white flex items-center gap-3">
+                <div class="h-10 w-10 bg-brand-500/20 text-brand-400 rounded-lg flex items-center justify-center">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
+                        </path>
+                    </svg>
+                </div>
+                Company Dashboard
+            </h1>
+            <p class="text-slate-400 mt-2 font-medium">Manage your job listings and track applicants.</p>
+        </div>
+        <div>
+            <a href="#"
+                class="btn-primary flex items-center gap-2 px-5 py-2.5 rounded-lg text-white font-medium shadow-lg hover-scale">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                </svg>
+                Post New Job
+            </a>
+        </div>
+    </div>
+
+    <!-- Active Jobs -->
+    <h2 class="text-xl font-bold text-white mb-6">Active Jobs & ATS Performance</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Job Card Example -->
+        <div
+            class="glass-panel p-6 rounded-2xl border border-white/5 hover:border-brand-500/50 transition-all flex flex-col justify-between group">
+            <div>
+                <div class="flex justify-between items-start mb-4">
+                    <h3 class="text-xl font-bold text-white group-hover:text-brand-400 transition-colors">Python Backend
+                        Developer</h3>
+                    <span
+                        class="bg-emerald-500/20 text-emerald-400 text-xs px-2 py-1 rounded-full font-bold">Active</span>
+                </div>
+                <p class="text-slate-400 text-sm mb-4">Posted 2 days ago • Engineering</p>
+
+                <div class="flex gap-4 mb-6">
+                    <div class="flex-1 bg-white/5 rounded-lg p-3 text-center">
+                        <p class="text-slate-400 text-xs font-medium uppercase">Applied</p>
+                        <p class="text-2xl font-bold text-white">45</p>
+                    </div>
+                    <div class="flex-1 bg-white/5 rounded-lg p-3 text-center">
+                        <p class="text-slate-400 text-xs font-medium uppercase">Screened</p>
+                        <p class="text-2xl font-bold text-brand-400">12</p>
+                    </div>
+                </div>
+            </div>
+
+            <a href="#"
+                class="w-full text-center py-2.5 bg-brand-500/10 text-brand-400 rounded-lg hover:bg-brand-500 hover:text-white transition-all font-medium text-sm">
+                View Candidates
+            </a>
+        </div>
+
+        <!-- Job Card Example -->
+        <div
+            class="glass-panel p-6 rounded-2xl border border-white/5 hover:border-indigo-500/50 transition-all flex flex-col justify-between group">
+            <div>
+                <div class="flex justify-between items-start mb-4">
+                    <h3 class="text-xl font-bold text-white group-hover:text-indigo-400 transition-colors">Frontend
+                        Architect</h3>
+                    <span
+                        class="bg-emerald-500/20 text-emerald-400 text-xs px-2 py-1 rounded-full font-bold">Active</span>
+                </div>
+                <p class="text-slate-400 text-sm mb-4">Posted 5 days ago • Design/UI</p>
+
+                <div class="flex gap-4 mb-6">
+                    <div class="flex-1 bg-white/5 rounded-lg p-3 text-center">
+                        <p class="text-slate-400 text-xs font-medium uppercase">Applied</p>
+                        <p class="text-2xl font-bold text-white">89</p>
+                    </div>
+                    <div class="flex-1 bg-white/5 rounded-lg p-3 text-center">
+                        <p class="text-slate-400 text-xs font-medium uppercase">Interview</p>
+                        <p class="text-2xl font-bold text-indigo-400">5</p>
+                    </div>
+                </div>
+            </div>
+
+            <a href="#"
+                class="w-full text-center py-2.5 bg-indigo-500/10 text-indigo-400 rounded-lg hover:bg-indigo-500 hover:text-white transition-all font-medium text-sm">
+                View Candidates
+            </a>
+        </div>
+
+        <!-- Add New Placeholder -->
+        <a href="#"
+            class="glass-panel p-6 rounded-2xl border border-dashed border-slate-600 hover:border-slate-400 text-slate-500 hover:text-white transition-all flex flex-col items-center justify-center min-h-[250px] group cursor-pointer group">
+            <div
+                class="h-16 w-16 rounded-full bg-white/5 group-hover:bg-brand-500/20 flex flex-col justify-center items-center mb-4 transition-colors">
+                <svg class="h-8 w-8 group-hover:text-brand-400 transition-colors" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                </svg>
+            </div>
+            <p class="font-medium">Create New Listing</p>
+        </a>
+    </div>
+</div>
+{% endblock %}

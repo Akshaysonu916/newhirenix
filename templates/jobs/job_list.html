@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full animate-fade-in-up">
+    <!-- Header -->
+    <div
+        class="mb-10 flex flex-col md:flex-row border-b border-white/10 pb-6 items-start md:items-center justify-between gap-4">
+        <div>
+            <h1 class="text-3xl font-bold text-white flex items-center gap-3">
+                <div class="h-10 w-10 bg-brand-500/20 text-brand-400 rounded-lg flex items-center justify-center">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                        </path>
+                    </svg>
+                </div>
+                Browse Jobs
+            </h1>
+            <p class="text-slate-400 mt-2 font-medium">Discover open positions and track your applications.</p>
+        </div>
+        <div class="flex gap-3 w-full md:w-auto">
+            <div class="relative w-full md:w-64">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <svg class="h-5 w-5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </div>
+                <input type="text"
+                    class="bg-slate-800/50 border border-slate-700 text-white text-sm rounded-lg focus:ring-brand-500 focus:border-brand-500 block w-full pl-10 p-2.5 transition-colors"
+                    placeholder="Search roles or companies...">
+            </div>
+            <button class="bg-white/5 border border-white/10 p-2.5 rounded-lg text-white hover:bg-white/10 transition">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z">
+                    </path>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Active Applications Section (If any exist) -->
+    <!-- ... (from previous candidate dashboard template) ... -->
+
+    <!-- Recommended Jobs -->
+    <h2 class="text-xl font-bold text-white flex items-center gap-2 mb-6 mt-12">
+        <div class="w-1.5 h-6 bg-brand-500 rounded-full"></div> Recommended for You
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Job Card Example 1 -->
+        <a href="#"
+            class="glass-panel p-6 rounded-2xl border border-white/5 hover:border-brand-500/50 transition-all flex flex-col justify-between group h-full">
+            <div>
+                <div class="flex justify-between items-start mb-4">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="h-10 w-10 bg-white/10 rounded-lg flex items-center justify-center text-white font-bold group-hover:scale-110 transition-transform">
+                            T
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white group-hover:text-brand-400 transition-colors">Backend
+                                Developer</h3>
+                            <p class="text-xs text-slate-400 font-medium">TechSol Inc.</p>
+                        </div>
+                    </div>
+                    <button class="text-slate-500 hover:text-rose-400 transition-colors"><svg class="w-5 h-5"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z">
+                            </path>
+                        </svg></button>
+                </div>
+
+                <p class="text-slate-400 text-sm mb-4 line-clamp-2">Seeking an experienced Python developer with Django
+                    expertise. Knowledge of AI and microservices is a plus.</p>
+
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="bg-indigo-500/20 text-indigo-400 text-xs px-2 py-1 rounded font-medium">Remote</span>
+                    <span class="bg-brand-500/20 text-brand-400 text-xs px-2 py-1 rounded font-medium">Python</span>
+                    <span class="bg-emerald-500/20 text-emerald-400 text-xs px-2 py-1 rounded font-medium">Django</span>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-between border-t border-white/10 pt-4">
+                <p class="text-slate-300 text-sm font-bold">$110k - $140k</p>
+                <span
+                    class="text-white text-sm font-medium hover:text-brand-400 flex items-center gap-1 group-hover:translate-x-1 transition-transform">View
+                    Details <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg></span>
+            </div>
+        </a>
+
+        <!-- Job Card Example 2 -->
+        <a href="#"
+            class="glass-panel p-6 rounded-2xl border border-white/5 hover:border-brand-500/50 transition-all flex flex-col justify-between group h-full">
+            <div>
+                <div class="flex justify-between items-start mb-4">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="h-10 w-10 bg-white/10 rounded-lg flex items-center justify-center text-white font-bold group-hover:scale-110 transition-transform">
+                            A
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white group-hover:text-brand-400 transition-colors">AI Engineer
+                            </h3>
+                            <p class="text-xs text-slate-400 font-medium">AutoBotics</p>
+                        </div>
+                    </div>
+                    <button class="text-slate-500 hover:text-rose-400 transition-colors"><svg class="w-5 h-5"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z">
+                            </path>
+                        </svg></button>
+                </div>
+
+                <p class="text-slate-400 text-sm mb-4 line-clamp-2">Looking for NLP experts to train custom models
+                    matching candidates to jobs effectively.</p>
+
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="bg-indigo-500/20 text-indigo-400 text-xs px-2 py-1 rounded font-medium">Hybrid</span>
+                    <span class="bg-brand-500/20 text-brand-400 text-xs px-2 py-1 rounded font-medium">PyTorch</span>
+                    <span class="bg-emerald-500/20 text-emerald-400 text-xs px-2 py-1 rounded font-medium">NLP</span>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-between border-t border-white/10 pt-4">
+                <p class="text-slate-300 text-sm font-bold">$140k - $160k</p>
+                <span
+                    class="text-white text-sm font-medium hover:text-brand-400 flex items-center gap-1 group-hover:translate-x-1 transition-transform">View
+                    Details <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg></span>
+            </div>
+        </a>
+
+        <!-- Job Card Example 3 -->
+        <a href="#"
+            class="glass-panel p-6 rounded-2xl border border-white/5 hover:border-brand-500/50 transition-all flex flex-col justify-between group h-full">
+            <div>
+                <div class="flex justify-between items-start mb-4">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="h-10 w-10 bg-white/10 rounded-lg flex items-center justify-center text-white font-bold group-hover:scale-110 transition-transform">
+                            N
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white group-hover:text-brand-400 transition-colors">Frontend
+                                Architect</h3>
+                            <p class="text-xs text-slate-400 font-medium">Nexus Corp</p>
+                        </div>
+                    </div>
+                    <button class="text-rose-500 hover:text-rose-400 transition-colors"><svg class="w-5 h-5"
+                            fill="currentColor" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z">
+                            </path>
+                        </svg></button>
+                </div>
+
+                <p class="text-slate-400 text-sm mb-4 line-clamp-2">Lead the frontend transition to React/Tailwind.
+                    Glassmorphism UI experience highly preferred.</p>
+
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="bg-indigo-500/20 text-indigo-400 text-xs px-2 py-1 rounded font-medium">On-site</span>
+                    <span class="bg-brand-500/20 text-brand-400 text-xs px-2 py-1 rounded font-medium">React</span>
+                    <span
+                        class="bg-emerald-500/20 text-emerald-400 text-xs px-2 py-1 rounded font-medium">Tailwind</span>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-between border-t border-white/10 pt-4">
+                <p class="text-slate-300 text-sm font-bold">$130k - $150k</p>
+                <span
+                    class="text-white text-sm font-medium hover:text-brand-400 flex items-center gap-1 group-hover:translate-x-1 transition-transform">View
+                    Details <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg></span>
+            </div>
+        </a>
+    </div>
+</div>
+{% endblock %}
