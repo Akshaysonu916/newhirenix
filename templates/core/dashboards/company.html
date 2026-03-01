@@ -17,8 +17,17 @@
             </h1>
             <p class="text-slate-400 mt-2 font-medium">Manage your job listings and track applicants.</p>
         </div>
-        <div>
-            <a href="#"
+        <div class="flex gap-3">
+            <a href="{% url 'hr_list' %}"
+                class="flex items-center gap-2 bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-400 px-5 py-2.5 rounded-lg font-medium border border-indigo-500/30 transition-all hover-scale">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
+                    </path>
+                </svg>
+                Manage HR
+            </a>
+            <a href="{% url 'create_job' %}"
                 class="btn-primary flex items-center gap-2 px-5 py-2.5 rounded-lg text-white font-medium shadow-lg hover-scale">
                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
@@ -31,69 +40,41 @@
     <!-- Active Jobs -->
     <h2 class="text-xl font-bold text-white mb-6">Active Jobs & ATS Performance</h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Job Card Example -->
+        {% for job in jobs %}
+        <!-- Job Card -->
         <div
             class="glass-panel p-6 rounded-2xl border border-white/5 hover:border-brand-500/50 transition-all flex flex-col justify-between group">
             <div>
                 <div class="flex justify-between items-start mb-4">
-                    <h3 class="text-xl font-bold text-white group-hover:text-brand-400 transition-colors">Python Backend
-                        Developer</h3>
-                    <span
-                        class="bg-emerald-500/20 text-emerald-400 text-xs px-2 py-1 rounded-full font-bold">Active</span>
+                    <h3 class="text-xl font-bold text-white group-hover:text-brand-400 transition-colors">{{ job.title
+                        }}</h3>
+                    <span class="bg-emerald-500/20 text-emerald-400 text-xs px-2 py-1 rounded-full font-bold">
+                        {% if job.is_active %}Active{% else %}Inactive{% endif %}
+                    </span>
                 </div>
-                <p class="text-slate-400 text-sm mb-4">Posted 2 days ago • Engineering</p>
+                <p class="text-slate-400 text-sm mb-4">Posted {{ job.created_at|timesince }} ago • {{ job.domain }}</p>
 
                 <div class="flex gap-4 mb-6">
                     <div class="flex-1 bg-white/5 rounded-lg p-3 text-center">
                         <p class="text-slate-400 text-xs font-medium uppercase">Applied</p>
-                        <p class="text-2xl font-bold text-white">45</p>
+                        <p class="text-2xl font-bold text-white">{{ job.app_count }}</p>
                     </div>
                     <div class="flex-1 bg-white/5 rounded-lg p-3 text-center">
                         <p class="text-slate-400 text-xs font-medium uppercase">Screened</p>
-                        <p class="text-2xl font-bold text-brand-400">12</p>
+                        <p class="text-2xl font-bold text-brand-400">{{ job.screened_count }}</p>
                     </div>
                 </div>
             </div>
 
-            <a href="#"
+            <a href="{% url 'job_applicants' job.id %}"
                 class="w-full text-center py-2.5 bg-brand-500/10 text-brand-400 rounded-lg hover:bg-brand-500 hover:text-white transition-all font-medium text-sm">
                 View Candidates
             </a>
         </div>
-
-        <!-- Job Card Example -->
-        <div
-            class="glass-panel p-6 rounded-2xl border border-white/5 hover:border-indigo-500/50 transition-all flex flex-col justify-between group">
-            <div>
-                <div class="flex justify-between items-start mb-4">
-                    <h3 class="text-xl font-bold text-white group-hover:text-indigo-400 transition-colors">Frontend
-                        Architect</h3>
-                    <span
-                        class="bg-emerald-500/20 text-emerald-400 text-xs px-2 py-1 rounded-full font-bold">Active</span>
-                </div>
-                <p class="text-slate-400 text-sm mb-4">Posted 5 days ago • Design/UI</p>
-
-                <div class="flex gap-4 mb-6">
-                    <div class="flex-1 bg-white/5 rounded-lg p-3 text-center">
-                        <p class="text-slate-400 text-xs font-medium uppercase">Applied</p>
-                        <p class="text-2xl font-bold text-white">89</p>
-                    </div>
-                    <div class="flex-1 bg-white/5 rounded-lg p-3 text-center">
-                        <p class="text-slate-400 text-xs font-medium uppercase">Interview</p>
-                        <p class="text-2xl font-bold text-indigo-400">5</p>
-                    </div>
-                </div>
-            </div>
-
-            <a href="#"
-                class="w-full text-center py-2.5 bg-indigo-500/10 text-indigo-400 rounded-lg hover:bg-indigo-500 hover:text-white transition-all font-medium text-sm">
-                View Candidates
-            </a>
-        </div>
-
+        {% empty %}
         <!-- Add New Placeholder -->
-        <a href="#"
-            class="glass-panel p-6 rounded-2xl border border-dashed border-slate-600 hover:border-slate-400 text-slate-500 hover:text-white transition-all flex flex-col items-center justify-center min-h-[250px] group cursor-pointer group">
+        <a href="{% url 'create_job' %}"
+            class="glass-panel p-6 rounded-2xl border border-dashed border-slate-600 hover:border-slate-400 text-slate-500 hover:text-white transition-all flex flex-col items-center justify-center min-h-[250px] group cursor-pointer group col-span-full">
             <div
                 class="h-16 w-16 rounded-full bg-white/5 group-hover:bg-brand-500/20 flex flex-col justify-center items-center mb-4 transition-colors">
                 <svg class="h-8 w-8 group-hover:text-brand-400 transition-colors" fill="none" viewBox="0 0 24 24"
@@ -101,8 +82,24 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                 </svg>
             </div>
-            <p class="font-medium">Create New Listing</p>
+            <p class="font-medium text-lg text-white">Create Your First Job Listing</p>
+            <p class="text-sm text-slate-400 mt-2">Start hiring top talent with Hirenix</p>
         </a>
+        {% endfor %}
+
+        {% if jobs %}
+        <!-- Add New Mini Placeholder -->
+        <a href="{% url 'create_job' %}"
+            class="glass-panel p-6 rounded-2xl border border-dashed border-slate-600 hover:border-slate-400 text-slate-500 hover:text-white transition-all flex flex-col items-center justify-center group cursor-pointer">
+            <div
+                class="h-10 w-10 rounded-full bg-white/5 group-hover:bg-brand-500/20 flex items-center justify-center mb-2">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                </svg>
+            </div>
+            <p class="font-medium text-sm">Post Another Job</p>
+        </a>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

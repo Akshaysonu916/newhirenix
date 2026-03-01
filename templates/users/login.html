@@ -2,71 +2,71 @@
 
 {% block content %}
 <div class="flex-grow flex items-center justify-center p-6 relative">
-    <div class="absolute w-full h-full inset-0 z-[-1] flex justify-center items-center pointer-events-none">
-        <div class="h-64 w-64 bg-brand-500/20 rounded-full blur-[80px] absolute -top-10 left-10"></div>
-        <div class="h-64 w-64 bg-indigo-500/20 rounded-full blur-[80px] absolute bottom-10 right-10"></div>
-    </div>
+ <div class="absolute w-full h-full inset-0 z-[-1] flex justify-center items-center pointer-events-none">
+ <div class="h-64 w-64 bg-brand-500/20 rounded-full blur-[80px] absolute -top-10 left-10"></div>
+ <div class="h-64 w-64 bg-indigo-500/20 rounded-full blur-[80px] absolute bottom-10 right-10"></div>
+ </div>
 
-    <div
-        class="max-w-md w-full glass-panel p-8 rounded-3xl border border-white/5 animate-fade-in-up relative z-10 shadow-2xl">
-        <div class="text-center mb-8">
-            <h2 class="text-3xl font-bold text-white mb-2">Welcome Back</h2>
-            <p class="text-slate-400">Log in to Hirenix to continue your journey.</p>
-        </div>
+ <div
+ class="max-w-md w-full glass-panel p-8 rounded-3xl border border-white/5 animate-fade-in-up relative z-10 shadow-2xl">
+ <div class="text-center mb-8">
+ <h2 class="text-3xl font-bold text-white mb-2">Welcome Back</h2>
+ <p class="text-slate-400">Log in to Hirenix to continue your journey.</p>
+ </div>
 
-        <form method="post" action="{% url 'login' %}" class="space-y-5">
-            {% csrf_token %}
+ <form method="post" action="{% url 'login' %}" class="space-y-5">
+ {% csrf_token %}
 
-            {% if form.non_field_errors %}
-            <div class="bg-rose-500/10 border border-rose-500/50 text-rose-400 text-sm p-3 rounded-lg text-center">
-                {{ form.non_field_errors }}
-            </div>
-            {% endif %}
+ {% if form.non_field_errors %}
+ <div class="bg-rose-500/10 border border-rose-500/50 text-rose-400 text-sm p-3 rounded-lg text-center">
+ {{ form.non_field_errors }}
+ </div>
+ {% endif %}
 
-            <div>
-                <label for="id_username" class="block text-sm font-medium text-slate-300 mb-1">Username</label>
-                <div class="relative">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <svg class="h-5 w-5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                        </svg>
-                    </div>
-                    <input type="text" name="username" id="id_username"
-                        class="bg-slate-800/50 border border-slate-700 text-white text-sm rounded-lg focus:ring-brand-500 focus:border-brand-500 block w-full pl-10 p-2.5 transition-colors"
-                        placeholder="Username" required>
-                </div>
-            </div>
+ <div>
+ <label for="id_username" class="block text-sm font-medium text-slate-300 mb-1">Username</label>
+ <div class="relative">
+ <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+ <svg class="h-5 w-5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+ <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+ d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+ </svg>
+ </div>
+ <input type="text" name="username" id="id_username"
+ class="bg-slate-800/50 border border-slate-700 text-white text-sm rounded-lg focus:ring-brand-500 focus:border-brand-500 block w-full pl-10 p-2.5 transition-colors"
+ placeholder="Username" required>
+ </div>
+ </div>
 
-            <div>
-                <div class="flex justify-between items-center mb-1">
-                    <label for="id_password" class="block text-sm font-medium text-slate-300">Password</label>
-                    <a href="#" class="text-xs text-brand-400 hover:text-brand-300 transition-colors">Forgot
-                        Password?</a>
-                </div>
-                <div class="relative">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <svg class="h-5 w-5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
-                            </path>
-                        </svg>
-                    </div>
-                    <input type="password" name="password" id="id_password"
-                        class="bg-slate-800/50 border border-slate-700 text-white text-sm rounded-lg focus:ring-brand-500 focus:border-brand-500 block w-full pl-10 p-2.5 transition-colors"
-                        placeholder="••••••••" required>
-                </div>
-            </div>
+ <div>
+ <div class="flex justify-between items-center mb-1">
+ <label for="id_password" class="block text-sm font-medium text-slate-300">Password</label>
+ <a href="#" class="text-xs text-brand-400 hover:text-brand-300 transition-colors">Forgot
+ Password?</a>
+ </div>
+ <div class="relative">
+ <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+ <svg class="h-5 w-5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+ <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+ d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+ </path>
+ </svg>
+ </div>
+ <input type="password" name="password" id="id_password"
+ class="bg-slate-800/50 border border-slate-700 text-white text-sm rounded-lg focus:ring-brand-500 focus:border-brand-500 block w-full pl-10 p-2.5 transition-colors"
+ placeholder="••••••••" required>
+ </div>
+ </div>
 
-            <button type="submit"
-                class="w-full btn-primary text-white font-medium rounded-lg text-sm px-5 py-3 text-center shadow-lg hover-scale mt-6">Log
-                In to Dashboard</button>
+ <button type="submit"
+ class="w-full btn-primary text-white font-medium rounded-lg text-sm px-5 py-3 text-center shadow-lg hover-scale mt-6">Log
+ In to Dashboard</button>
 
-            <p class="text-sm text-center text-slate-400 mt-6">
-                Don't have an account? <a href="{% url 'signup_choice' %}"
-                    class="text-brand-400 hover:text-brand-300 font-medium">Get Started</a>
-            </p>
-        </form>
-    </div>
+ <p class="text-sm text-center text-slate-400 mt-6">
+ Don't have an account? <a href="{% url 'signup_choice' %}"
+ class="text-brand-400 hover:text-brand-300 font-medium">Get Started</a>
+ </p>
+ </form>
+ </div>
 </div>
 {% endblock %}

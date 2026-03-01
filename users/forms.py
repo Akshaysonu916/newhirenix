@@ -25,3 +25,42 @@ class CompanySignUpForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = User
         fields = ('username', 'email')
+
+
+class CandidateProfileForm(forms.ModelForm):
+    first_name = forms.CharField(max_length=30)
+    last_name = forms.CharField(max_length=30)
+    email = forms.EmailField()
+    avatar = forms.ImageField(required=False)
+
+    class Meta:
+        model = CandidateProfile
+        fields = ('resume', 'skills', 'experience_years')
+
+
+class CompanyProfileForm(forms.ModelForm):
+    email = forms.EmailField()
+    avatar = forms.ImageField(required=False)
+
+    class Meta:
+        model = CompanyProfile
+        fields = ('company_name', 'description', 'website', 'logo')
+
+
+class HRProfileForm(forms.ModelForm):
+    first_name = forms.CharField(max_length=30)
+    last_name = forms.CharField(max_length=30)
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email', 'avatar')
+
+class HRManagementForm(UserCreationForm):
+    first_name = forms.CharField(max_length=30, required=True)
+    last_name = forms.CharField(max_length=30, required=True)
+    email = forms.EmailField(required=True)
+
+    class Meta(UserCreationForm.Meta):
+        model = User
+        fields = ('username', 'email', 'first_name', 'last_name')

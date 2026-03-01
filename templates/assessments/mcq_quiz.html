@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full animate-fade-in-up">
+    <div class="mb-10 flex border-b border-white/10 pb-6 items-center justify-between">
+        <div>
+            <h1 class="text-3xl font-bold text-white flex items-center gap-3">
+                <div class="h-10 w-10 bg-brand-500/20 text-brand-400 rounded-lg flex items-center justify-center">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                Level 1: Skill Assessment
+            </h1>
+            <p class="text-slate-400 mt-2 font-medium">Domain: <span class="text-white">{{ application.job.domain }}</span> • Role: <span class="text-white">{{ application.job.title }}</span></p>
+        </div>
+        <div id="quiz-timer"
+            class="text-2xl font-mono font-bold text-brand-400 bg-white/5 px-4 py-2 rounded-xl border border-white/10">
+            05:00
+        </div>
+    </div>
+
+    <form method="post" id="quiz-form" class="space-y-8">
+        {% csrf_token %}
+
+        {% for question in questions %}
+        <input type="hidden" name="question_ids" value="{{ question.id }}">
+        <div
+            class="glass-panel p-8 rounded-3xl border border-white/5 shadow-xl relative overflow-hidden group hover:border-brand-500/30 transition-all">
+            <div class="absolute top-0 left-0 w-1 h-full bg-brand-500/20 group-hover:bg-brand-500 transition-colors">
+            </div>
+
+            <p class="text-xl font-bold text-white mb-6"><span class="text-brand-500 mr-2">Q{{ forloop.counter }}.</span> {{ question.question }}</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <label
+                    class="flex items-center p-4 rounded-xl border border-white/5 bg-white/5 hover:bg-white/10 cursor-pointer transition-all group/opt">
+                    <input type="radio" name="q_{{ question.id }}" value="A"
+                        class="w-4 h-4 text-brand-500 bg-slate-800 border-slate-700 focus:ring-brand-500" required>
+                    <span class="ml-3 text-slate-300 group-hover/opt:text-white transition-colors">A) {{ question.option_a }}</span>
+                </label>
+                <label
+                    class="flex items-center p-4 rounded-xl border border-white/5 bg-white/5 hover:bg-white/10 cursor-pointer transition-all group/opt">
+                    <input type="radio" name="q_{{ question.id }}" value="B"
+                        class="w-4 h-4 text-brand-500 bg-slate-800 border-slate-700 focus:ring-brand-500">
+                    <span class="ml-3 text-slate-300 group-hover/opt:text-white transition-colors">B) {{ question.option_b }}</span>
+                </label>
+                <label
+                    class="flex items-center p-4 rounded-xl border border-white/5 bg-white/5 hover:bg-white/10 cursor-pointer transition-all group/opt">
+                    <input type="radio" name="q_{{ question.id }}" value="C"
+                        class="w-4 h-4 text-brand-500 bg-slate-800 border-slate-700 focus:ring-brand-500">
+                    <span class="ml-3 text-slate-300 group-hover/opt:text-white transition-colors">C) {{ question.option_c }}</span>
+                </label>
+                <label
+                    class="flex items-center p-4 rounded-xl border border-white/5 bg-white/5 hover:bg-white/10 cursor-pointer transition-all group/opt">
+                    <input type="radio" name="q_{{ question.id }}" value="D"
+                        class="w-4 h-4 text-brand-500 bg-slate-800 border-slate-700 focus:ring-brand-500">
+                    <span class="ml-3 text-slate-300 group-hover/opt:text-white transition-colors">D) {{ question.option_d }}</span>
+                </label>
+            </div>
+        </div>
+        {% empty %}
+        <div class="text-center py-20 glass-panel rounded-3xl border border-white/5">
+            <h3 class="text-xl font-bold text-white mb-2">No questions generated</h3>
+            <p class="text-slate-400">Please contact support or wait for a recruiter to update the assessment.</p>
+        </div>
+        {% endfor %}
+
+        {% if questions %}
+        <div class="pt-6">
+            <button type="submit"
+                class="w-full btn-primary text-white font-bold rounded-2xl text-xl px-6 py-5 text-center shadow-xl hover-scale shadow-brand-500/50">Submit
+                Assessment</button>
+        </div>
+        {% endif %}
+    </form>
+</div>
+
+<script>
+    // Simple 5-minute timer
+    let timeLeft = 300;
+    const timerDisplay = document.getElementById('quiz-timer');
+    const quizForm = document.getElementById('quiz-form');
+
+    const countdown = setInterval(() => {
+        timeLeft--;
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+        if (timeLeft <= 0) {
+            clearInterval(countdown);
+            quizForm.submit();
+        }
+    }, 1000);
+</script>
+{% endblock %}

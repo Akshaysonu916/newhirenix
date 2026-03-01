@@ -9,6 +9,7 @@ class User(AbstractUser):
         ('CANDIDATE', 'Candidate'),
     )
     role = models.CharField(max_length=15, choices=ROLE_CHOICES, default='CANDIDATE')
+    avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
 
     def is_admin(self):
         return self.role == 'ADMIN' or self.is_superuser

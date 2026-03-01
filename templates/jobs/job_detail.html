@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full animate-fade-in-up">
+ <!-- Breadcrumbs -->
+ <nav class="flex mb-8" aria-label="Breadcrumb">
+ <ol class="inline-flex items-center space-x-1 md:space-x-3">
+ <li class="inline-flex items-center">
+ <a href="{% url 'job_list' %}"
+ class="inline-flex items-center text-sm font-medium text-slate-400 hover:text-white transition-colors">
+ <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+ <path
+ d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z">
+ </path>
+ </svg>
+ Job Board
+ </a>
+ </li>
+ <li>
+ <div class="flex items-center">
+ <svg class="w-6 h-6 text-slate-600" fill="currentColor" viewBox="0 0 20 20">
+ <path fill-rule="evenodd"
+ d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+ clip-rule="evenodd"></path>
+ </svg>
+ <span class="ml-1 text-sm font-medium text-slate-500 md:ml-2">Job Details</span>
+ </div>
+ </li>
+ </ol>
+ </nav>
+
+ <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+ <!-- Main Content -->
+ <div class="lg:col-span-2 space-y-8">
+ <div class="glass-panel p-8 rounded-3xl border border-white/5 shadow-2xl relative overflow-hidden">
+ <div class="absolute top-0 right-0 w-32 h-32 bg-brand-500/10 rounded-full blur-3xl"></div>
+
+ <div class="flex items-center gap-4 mb-6">
+ <div
+ class="h-16 w-16 bg-white/5 rounded-2xl flex items-center justify-center text-2xl font-bold text-white border border-white/10">
+ {{ job.company.company_name|make_list|first|upper }}
+ </div>
+ <div>
+ <h1 class="text-3xl font-bold text-white mb-1">{{ job.title }}</h1>
+ <p class="text-brand-400 font-medium">{{ job.company.company_name }} • {{ job.location }}</p>
+ </div>
+ </div>
+
+ <div class="flex flex-wrap gap-3 mb-8">
+ <span
+ class="bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">{{ job.domain }}</span>
+ {% if job.salary_range %}
+ <span
+ class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">{{ job.salary_range }}</span>
+ {% endif %}
+ <span
+ class="bg-slate-800 text-slate-300 border border-slate-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Full
+ Time</span>
+ </div>
+
+ <div class="prose prose-invert max-w-none">
+ <h3 class="text-xl font-bold text-white mb-4">About the Role</h3>
+ <p class="text-slate-300 leading-relaxed mb-8">{{ job.description|linebreaks }}</p>
+
+ {% if job.responsibilities %}
+ <h3 class="text-xl font-bold text-white mb-4">What You'll Do</h3>
+ <div class="text-slate-300 leading-relaxed mb-8">{{ job.responsibilities|linebreaks }}</div>
+ {% endif %}
+
+ {% if job.requirements %}
+ <h3 class="text-xl font-bold text-white mb-4">What We're Looking For</h3>
+ <div class="text-slate-300 leading-relaxed mb-8">{{ job.requirements|linebreaks }}</div>
+ {% endif %}
+ </div>
+ </div>
+ </div>
+
+ <!-- Sidebar Actions -->
+ <div class="lg:col-span-1 space-y-6">
+ <div class="glass-panel p-6 rounded-2xl border border-white/10 shadow-xl sticky top-24">
+ <h3 class="text-lg font-bold text-white mb-6 flex items-center gap-2">
+ <svg class="w-5 h-5 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+ <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+ d="M13 10V3L4 14h7v7l9-11h-7z" />
+ </svg>
+ Apply for this Job
+ </h3>
+
+ {% if user.is_authenticated %}
+ {% if user.is_candidate %}
+ {% if has_applied %}
+ <div class="space-y-4">
+ <div class="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-4 text-center">
+ <p class="text-emerald-400 font-bold flex items-center justify-center gap-2">
+ <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+ <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+ d="M5 13l4 4L19 7"></path>
+ </svg>
+ Application Submitted
+ </p>
+ </div>
+ <a href="{% url 'dashboard' %}"
+ class="block w-full bg-slate-800 border border-slate-700 text-white font-medium py-4 rounded-xl text-center hover:bg-slate-700 transition-all">
+ Track in Dashboard
+ </a>
+ </div>
+ {% else %}
+ <form action="{% url 'apply_job' job.id %}" method="post" class="space-y-4">
+ {% csrf_token %}
+ <div class="p-4 bg-white/5 rounded-xl border border-dashed border-slate-700 text-center">
+ <p class="text-xs text-slate-400 mb-2">Resume currently on file:</p>
+ <p class="text-sm font-bold text-white truncate">{{ user.candidate_profile.resume.name|default:"No resume uploaded" }}</p>
+ {% if not user.candidate_profile.resume %}
+ <p class="text-[10px] text-rose-400 mt-2">Warning: Application without resume may affect ATS
+ score.</p>
+ {% endif %}
+ </div>
+ <button type="submit"
+ class="w-full btn-primary text-white font-bold py-4 rounded-xl shadow-lg hover-scale">Submit
+ Application</button>
+ </form>
+ {% endif %}
+ {% else %}
+ <div class="p-4 bg-amber-500/10 border border-amber-500/30 rounded-xl">
+ <p class="text-sm text-amber-300">You are logged in as a <strong>{{ user.role }}</strong>. Only
+ candidates can apply for jobs.</p>
+ </div>
+ {% endif %}
+ {% else %}
+ <div class="space-y-4">
+ <p class="text-slate-400 text-sm text-center">Log in or create a candidate account to apply.</p>
+ <a href="{% url 'login' %}?next={{ request.path }}"
+ class="block w-full btn-primary text-white font-bold py-4 rounded-xl text-center shadow-lg hover-scale">Log
+ In to Apply</a>
+ <a href="{% url 'signup_candidate' %}"
+ class="block w-full bg-white/5 border border-white/10 text-white font-medium py-4 rounded-xl text-center hover:bg-white/10 transition-all">Sign
+ Up</a>
+ </div>
+ {% endif %}
+
+ <div class="mt-8 pt-6 border-t border-white/10 space-y-4">
+ <div class="flex items-center justify-between text-sm">
+ <span class="text-slate-400 italic">Posted</span>
+ <span class="text-slate-200 font-medium">{{ job.created_at|timesince }} ago</span>
+ </div>
+ <div class="flex items-center justify-between text-sm">
+ <span class="text-slate-400 italic">Candidates</span>
+ <span class="text-slate-200 font-medium">{{ job.applications.count }} Applied</span>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+</div>
+{% endblock %}
